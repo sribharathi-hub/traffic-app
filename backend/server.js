@@ -4,7 +4,7 @@ const cors = require("cors");
 const { exec } = require("child_process");
 require("dotenv").config();
 
-const Prediction = require("./models/Prediction");
+const Prediction = require("./model/Prediction");
 
 const app = express();
 
