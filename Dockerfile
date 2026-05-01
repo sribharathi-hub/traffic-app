@@ -2,7 +2,7 @@
 FROM node:18
 
 # Install Java (required for TrafficFlow.jar)
-RUN apt-get update && apt-get install -y openjdk-17-jdk
+RUN apt-get update && apt-get install -y openjdk-21-jdk
 
 # Set working directory
 WORKDIR /app
