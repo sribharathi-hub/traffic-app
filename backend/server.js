@@ -20,6 +20,8 @@ app.post("/predict", (req, res) => {
   try {
     const input   = JSON.stringify(req.body).replace(/"/g, '\\"');
     const jarPath = path.join(__dirname, "TrafficFlow.jar");
+    const modelsPath  = path.join(__dirname, "models");
+
 
     exec(`java -jar "${jarPath}" predictSingle "${input}"`, async (err, stdout, stderr) => {
       if (err) {
