@@ -1,35 +1,26 @@
-# ---------- BASE ----------
-FROM node:18
+# ---------- BASE WITH JAVA ----------
+FROM openjdk:21-jdk-slim
 
-# Install Java (required for TrafficFlow.jar)
-RUN apt-get update && apt-get install -y openjdk-21-jdk
+# ---------- INSTALL NODE ----------
+RUN apt-get update && apt-get install -y nodejs npm
 
-# Set working directory
+# ---------- WORKDIR ----------
 WORKDIR /app
 
 # ---------- COPY FILES ----------
-# Copy backend first (better caching)
 COPY backend ./backend
-
-# Install backend dependencies
-WORKDIR /app/backend
-RUN npm install --omit=dev
-
-# Go back to root
-WORKDIR /app
-
-# Copy Java JAR + models (CRITICAL)
 COPY TrafficFlow.jar .
 COPY models ./models
 
-# Optional: copy dataset if needed
-# COPY src/train_20k.json ./src/train_20k.json
+# ---------- INSTALL NODE DEP ----------
+WORKDIR /app/backend
+RUN npm install --omit=dev
 
-# ---------- ENV ----------
-ENV PORT=5000
+# ---------- BACK ----------
+WORKDIR /app
 
-# ---------- EXPOSE ----------
+# ---------- PORT ----------
 EXPOSE 5000
 
-# ---------- RUN ----------
+# ---------- START ----------
 CMD ["node", "backend/server.js"]
