@@ -1,0 +1,120 @@
+.prediction-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  background: radial-gradient(circle at center, #10101a 0%, #050508 100%);
+  position: relative;
+  padding: 40px;
+}
+
+/* Glassmorphism Card Style */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(15px);
+  /* Frosty glass effect */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  padding: 40px;
+}
+
+.input-container {
+  width: 380px;
+}
+
+.neon-text {
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.vertical-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 14px;
+  color: #fff;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.glass-input:focus {
+  border-color: #6c63ff;
+}
+
+.predict-btn {
+  width: 100%;
+  padding: 14px;
+  margin-top: 30px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(45deg, #6c63ff, #4e46d8);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.predict-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(108, 99, 255, 0.4);
+}
+
+/* Results Side Layout */
+.results-container {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mini-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.status-card {
+  margin-top: 15px;
+  font-weight: 800;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.status-card.high {
+  color: #ff4757;
+}
+
+.status-card.low {
+  color: #2ed573;
+}
+
+.chart-box {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 15px;
+  padding: 20px;
+  height: 280px;
+  margin-top: 25px;
+}
+
+/* Back Button Positioning */
+.back-btn-corner {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+}

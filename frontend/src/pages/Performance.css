@@ -1,0 +1,125 @@
+.performance-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #0f121a 0%, #050508 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  font-family: 'Inter', sans-serif;
+  color: white;
+}
+
+.performance-header-box {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.neon-text-green {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: #39ff14;
+  text-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.sub-header-green {
+  color: #666;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+/* Force 3 Cards Per Row */
+.performance-grid-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* Exactly 3 cards */
+  gap: 30px;
+  width: 100%;
+  max-width: 1100px;
+  /* Constrain width to keep 3 cards compact */
+  margin-bottom: 50px;
+}
+
+.mini-performance-card {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(57, 255, 20, 0.15);
+  border-radius: 20px;
+  padding: 35px 25px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: left;
+}
+
+.mini-performance-card:hover {
+  transform: translateY(-8px);
+  border-color: #39ff14;
+  box-shadow: 0 10px 30px rgba(57, 255, 20, 0.1);
+  background: rgba(57, 255, 20, 0.02);
+}
+
+.model-header {
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.model-name {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.metric-line {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+.metric-line span {
+  color: #888;
+}
+
+.metric-line strong {
+  font-family: 'Courier New', monospace;
+  color: #fff;
+}
+
+.metric-line.highlight strong {
+  color: #39ff14;
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+}
+
+.green-neon-btn {
+  background: transparent;
+  border: 1px solid #39ff14;
+  color: #39ff14;
+  padding: 12px 40px;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  text-transform: uppercase;
+}
+
+.green-neon-btn:hover {
+  background: #39ff14;
+  color: #000;
+  box-shadow: 0 0 25px rgba(57, 255, 20, 0.5);
+}
+
+/* Responsiveness: Switch to 1 or 2 columns on smaller screens */
+@media (max-width: 992px) {
+  .performance-grid-3col {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .performance-grid-3col {
+    grid-template-columns: 1fr;
+  }
+}

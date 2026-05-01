@@ -1,0 +1,74 @@
+.dashboard-container {
+  min-height: 100vh;
+  padding: 60px 20px;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.dashboard-grid-2col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.nav-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 2px solid transparent;
+  border-radius: 20px;
+  padding: 35px;
+  cursor: pointer;
+  transition: 0.3s;
+  position: relative;
+}
+
+.nav-card:hover {
+  transform: translateY(-8px);
+}
+
+/* Color Specific Outlines */
+.cyan {
+  border-color: #00e5ff;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
+}
+
+.green {
+  border-color: #39ff14;
+  box-shadow: 0 0 15px rgba(57, 255, 20, 0.1);
+}
+
+.purple {
+  border-color: #bc13fe;
+  box-shadow: 0 0 15px rgba(188, 19, 254, 0.1);
+}
+
+.yellow {
+  border-color: #fff01f;
+  box-shadow: 0 0 15px rgba(255, 240, 31, 0.1);
+}
+
+.icon-wrapper {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cyan .icon-wrapper {
+  color: #00e5ff;
+}
+
+.green .icon-wrapper {
+  color: #39ff14;
+}
+
+/* ... and so on for other colors */

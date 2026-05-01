@@ -1,0 +1,118 @@
+/* Center the entire page content */
+.comparison-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #10101a 0%, #050508 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  font-family: 'Inter', sans-serif;
+  color: white;
+}
+
+/* Main Glass Card Container */
+.comparison-container {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(51, 246, 175, 0.2);
+  border-radius: 24px;
+  padding: 40px;
+  width: 100%;
+  max-width: 900px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+/* Header Text */
+.comparison-header h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+
+.sub-header-text {
+  color: #888;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+/* Chart Box Styling */
+.chart-wrapper {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  padding: 20px;
+  height: 300px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Comparison Table Design */
+.comparison-table-wrapper {
+  background: rgba(255, 255, 255, 0.01);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(51, 246, 175, 0.1);
+}
+
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.comp-table th {
+  background: rgba(51, 246, 175, 0.08);
+  color: #33f6af;
+  /* Teal color from your image */
+  padding: 15px;
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(51, 246, 175, 0.2);
+}
+
+.comp-table td {
+  padding: 14px;
+  font-size: 0.9rem;
+  color: #ccc;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* Column Highlighting */
+.metric-name {
+  color: #fff;
+  font-weight: 600;
+  text-align: left;
+  padding-left: 25px !important;
+}
+
+.diff-high {
+  color: #ff4757;
+  font-weight: bold;
+}
+
+/* Red for high difference */
+
+/* Button Styling */
+.back-dash-btn {
+  margin-top: 30px;
+  background: white;
+  border: none;
+  color: black;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.back-dash-btn:hover {
+  background: #33f6af;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(51, 246, 175, 0.3);
+}
