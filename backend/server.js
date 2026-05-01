@@ -23,44 +23,54 @@ app.post("/predict", async (req, res) => {
   try {
     const { f1, f2, f3, f4, f5 } = req.body;
 
-    if (
-      f1 === undefined ||
-      f2 === undefined ||
-      f3 === undefined ||
-      f4 === undefined ||
-      f5 === undefined
-    ) {
+    if ([f1, f2, f3, f4, f5].includes(undefined)) {
       return res.status(400).json({ error: "Missing input values" });
     }
 
-    const command = `java -jar /app/TrafficFlow.jar ${f1} ${f2} ${f3} ${f4} ${f5}`;
+    const inputJSON = JSON.stringify({ f1, f2, f3, f4, f5 }).replace(/"/g, '\\"');
+
+    const command = `java -jar /app/TrafficFlow.jar predictSingle "${inputJSON}"`;
+
+    console.log("Running:", command);
 
     exec(command, async (error, stdout, stderr) => {
-      if (error) {
-        return res.status(500).json({ error: "Java execution failed" });
-      }
 
-      const prediction = stdout.trim();
+  console.log("COMMAND:", command);
+  console.log("STDOUT:", stdout);
+  console.log("STDERR:", stderr);
 
-      const newData = new Prediction({
-        f1,
-        f2,
-        f3,
-        f4,
-        f5,
-        result: prediction
-      });
-
-      await newData.save();
-
-      res.json({ prediction });
+  if (error) {
+    console.error("ERROR:", error);
+    return res.status(500).json({
+      error: "Java execution failed",
+      details: stderr
     });
+  }
+
+  // 🔥 Extract final prediction
+  const lines = stdout.split("\n");
+  const finalLine = lines.find(line => line.includes("FINAL HYBRID"));
+
+  let prediction = "0";
+  if (finalLine) {
+    prediction = finalLine.split(":")[1].trim();
+  }
+
+  const newData = new Prediction({
+    f1, f2, f3, f4, f5,
+    result: prediction
+  });
+
+  await newData.save();
+
+  res.json({ prediction });
+});
 
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: "Prediction failed" });
   }
 });
-
 app.get("/history", async (req, res) => {
   try {
     const data = await Prediction.find().sort({ createdAt: -1 });
