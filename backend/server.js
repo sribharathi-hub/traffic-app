@@ -1,76 +1,77 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const cors = require("cors");
 const { exec } = require("child_process");
-const fs = require("fs");
-const mongoose = require("mongoose");
+require("dotenv").config();
 
-const Prediction = require("./model/Prediction");
+const Prediction = require("./models/Prediction");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect("mongodb://127.0.0.1:27017/traffic-app")
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
-app.post("/predict", (req, res) => {
+app.get("/", (req, res) => {
+  res.send("API is running");
+});
+
+app.post("/predict", async (req, res) => {
   try {
-    const input = JSON.stringify(req.body).replace(/"/g, '\\"');
+    const { f1, f2, f3, f4, f5 } = req.body;
 
-    exec(`java -jar TrafficFlow.jar predictSingle "${input}"`, (err, stdout, stderr) => {
+    if (
+      f1 === undefined ||
+      f2 === undefined ||
+      f3 === undefined ||
+      f4 === undefined ||
+      f5 === undefined
+    ) {
+      return res.status(400).json({ error: "Missing input values" });
+    }
 
-      if (err) {
-        console.error("EXEC ERROR:", err);
-        console.error("STDERR:", stderr);
+    const command = `java -jar /app/TrafficFlow.jar ${f1} ${f2} ${f3} ${f4} ${f5}`;
+
+    exec(command, async (error, stdout, stderr) => {
+      if (error) {
         return res.status(500).json({ error: "Java execution failed" });
       }
 
-      console.log("RAW OUTPUT:\n", stdout);
+      const prediction = stdout.trim();
 
-      const lines = stdout.trim().split("\n").slice(1);
-
-      const results = lines.map(line => {
-        const [model, value, deltaR] = line.split("|");
-        return {
-          model: model?.trim(),
-          value: parseFloat(value),
-          deltaR: parseFloat(deltaR)
-        };
+      const newData = new Prediction({
+        f1,
+        f2,
+        f3,
+        f4,
+        f5,
+        result: prediction
       });
 
-      res.json(results);
+      await newData.save();
+
+      res.json({ prediction });
     });
 
-  } catch (e) {
-    console.error("SERVER ERROR:", e);
-    res.status(500).json({ error: "Server crash" });
+  } catch (err) {
+    res.status(500).json({ error: "Prediction failed" });
   }
 });
 
-app.get("/performance", (req, res) => {
-
-  const data = fs.readFileSync("metrics.txt", "utf8")
-    .split("\n")
-    .slice(1)
-    .filter(Boolean)
-    .map(l => {
-      const [model, rmse, mae, deltaR] = l.split(",");
-      return {
-        model,
-        rmse: parseFloat(rmse),
-        mae: parseFloat(mae),
-        deltaR: parseFloat(deltaR)
-      };
-    });
-
-  res.json(data);
-});
-
 app.get("/history", async (req, res) => {
-  const data = await Prediction.find().sort({ createdAt: -1 });
-  res.json(data);
+  try {
+    const data = await Prediction.find().sort({ createdAt: -1 });
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch history" });
+  }
 });
 
-app.listen(5000, () => console.log("Server running → http://localhost:5000"));
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on ${PORT}`);
+});

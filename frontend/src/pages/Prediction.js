@@ -79,7 +79,7 @@ export default function Prediction() {
               {results.map(r => (
                 <div className="mini-card" key={r.model}>
                   <span>{r.model}</span>
-                  <strong>{r.value.toFixed(4)}</strong>
+                  <strong>{r.deltaR.toFixed(4)}</strong>
                 </div>
               ))}
             </div>
@@ -97,7 +97,7 @@ export default function Prediction() {
                   labels: results.map(r => r.model),
                   datasets: [{
                     label: "Prediction",
-                    data: results.map(r => r.value),
+                    data: results.map(r => r.deltaR),
                     backgroundColor: "rgba(108, 99, 255, 0.6)",
                     borderColor: "#6c63ff",
                     borderWidth: 2,
