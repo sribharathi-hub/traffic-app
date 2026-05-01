@@ -1,5 +1,5 @@
 # ---------- BASE WITH JAVA ----------
-FROM openjdk:21-jdk-slim
+FROM openjdk:21-jdk
 
 # ---------- INSTALL NODE ----------
 RUN apt-get update && apt-get install -y nodejs npm
